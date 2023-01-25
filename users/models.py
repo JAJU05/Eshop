@@ -18,18 +18,19 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self,  email, password=None):
         user = self.create_user(
-            email,
+            email=email,
             password=password,
         )
         user.is_superuser = True
         user.is_staff = True
+        user.is_active = True
         user.save(using=self._db)
         return user
 
 
 class User(AbstractUser):
-    email = EmailField(max_length=20, unique=True),
-    phone = CharField(max_length=25, null=True, blank=True),
+    email = EmailField(max_length=20, unique=True)
+    phone = CharField(max_length=25, null=True, blank=True)
 
     objects = UserManager()
 

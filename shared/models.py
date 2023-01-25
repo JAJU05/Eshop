@@ -1,5 +1,4 @@
-from django.db.models import CharField, SlugField, Model, DateTimeField, IntegerField, FloatField
-from django.utils.text import slugify
+from django.db.models import CharField, SlugField, Model, DateTimeField
 
 
 class SlugBaseModel(Model):

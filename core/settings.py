@@ -109,6 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ACCOUNT_AUTHENTICATION_METHOD ="email"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

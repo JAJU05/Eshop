@@ -18,9 +18,14 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
 
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('home.urls')),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  # admin
+                  path('admin/', admin.site.urls),
 
+                  path('', include('home.urls')),
+
+                  # auth
+                  path('account/', include('users.urls'))
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
+                                                                                           document_root=settings.
+                                                                                           MEDIA_ROOT)

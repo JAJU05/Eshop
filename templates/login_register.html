@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <!-- Coding by CodingLab | www.codinglabweb.com-->
 <html lang="en">
@@ -8,7 +10,7 @@
     <title> Responsive Login and Signup Form </title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Boxicons CSS -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
@@ -20,6 +22,7 @@
         <div class="form-content">
             <header>Login</header>
             <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
                 <div class="field input-field">
                     <input type="email" placeholder="Email" class="input" name="email" required>
                 </div>
@@ -54,7 +57,7 @@
 
         <div class="media-options">
             <a href="#" class="field google">
-                <img src="images/google.png" alt="" class="google-img">
+                <img src="{% static 'images/google.png' %}" alt="" class="google-img">
                 <span>Login with Google</span>
             </a>
         </div>
@@ -66,7 +69,8 @@
     <div class="form signup">
         <div class="form-content">
             <header>Signup</header>
-            <form action="#">
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
                 <div class="field input-field">
                     <input type="email" placeholder="Email" class="input">
                 </div>
@@ -101,7 +105,7 @@
 
         <div class="media-options">
             <a href="#" class="field google">
-                <img src="images/google.png" alt="" class="google-img">
+                <img src="{% static 'images/google.png' %}" alt="" class="google-img">
                 <span>Login with Google</span>
             </a>
         </div>
@@ -110,6 +114,6 @@
 </section>
 
 <!-- JavaScript -->
-<script src="js/script.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
