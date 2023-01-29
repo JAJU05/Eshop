@@ -3,7 +3,7 @@ from django.db.models import Model, CharField, SlugField, ForeignKey, CASCADE, I
 
 class Cart(Model):
     product = ForeignKey('home.Product', CASCADE)
-    user = ForeignKey('users.User')
+    user = ForeignKey('users.User', CASCADE)
     count = IntegerField(default=1)
 
     def __str__(self):
@@ -25,7 +25,7 @@ class Order(Model):
     address_2 = CharField(max_length=255)
     state = CharField(max_length=255)
     phone = CharField(max_length=15, unique=True)
-    zipcode = IntegerField(max_length=8)
+    zipcode = CharField(max_length=8)
     country = ForeignKey('Country', CASCADE)
 
 

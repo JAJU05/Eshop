@@ -72,20 +72,20 @@
             <form action="{% url 'register' %}" method="post">
                 {% csrf_token %}
                 <div class="field input-field">
-                    <input type="email" placeholder="Email" class="input">
+                    <input type="email" placeholder="Email" class="input" name="email">
                 </div>
 
                 <div class="field input-field">
-                    <input type="password" placeholder="Create password" class="password" name="password">
+                    <input type="password" placeholder="Create password" class="password" name="password1">
                 </div>
 
                 <div class="field input-field">
-                    <input type="password" placeholder="Confirm password" class="password" name="confirm_password">
+                    <input type="password" placeholder="Confirm password" class="password" name="password2">
                     <i class='bx bx-hide eye-icon'></i>
                 </div>
 
                 <div class="field button-field">
-                    <button>Signup</button>
+                    <button type="submit">Signup</button>
                 </div>
             </form>
 

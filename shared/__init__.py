@@ -1,1 +1,1 @@
-from shared.models import Base, SlugBaseModel
+from shared.fields import ChoiceArrayField

@@ -9,18 +9,23 @@ class AuthLoginForm(Form):
     email = EmailField(max_length=25)
     password = CharField(max_length=255)
 
-    def clean_email(self):
-        email = self.data.get('email')
-        if not User.objects.filter(email=email).exists():
-            raise ValidationError("This user didn't registered !")
-        return email
+    # def clean_email(self):
+    #     email = self.data.get('email')
+    #     if not User.objects.filter(email=email).exists():
+    #         raise ValidationError("This user didn't registered !")
+    #     return email
 
 
 class CustomUserCreationForm(UserCreationForm):
-    first_name = CharField(max_length=255)
+    email = EmailField(max_length=255)
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Account with this email already exists")
+        return email
 
     class Meta:
         model = User
         fields = ('email',)
         field_classes = None
-

@@ -38,5 +38,14 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
 
     class Meta:
-        verbose_name_plural = 'Users'
-        verbose_name = 'User'
+        db_table = 'Users'
+
+    def save(self, *args, **kwargs):
+        if self.username is None or self.username == '':
+            self.username = f'User000{self.__class__.objects.count()}'
+        super().save(*args, **kwargs)
+
+
+
+
+
