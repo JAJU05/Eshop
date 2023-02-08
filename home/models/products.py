@@ -1,6 +1,5 @@
-from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import DecimalField, TextField, ImageField, ForeignKey, CASCADE, SmallIntegerField, IntegerField, \
+from django.db.models import DecimalField, TextField, ImageField, ForeignKey, CASCADE, IntegerField, \
     TextChoices, CharField
 
 from shared import ChoiceArrayField
@@ -35,10 +34,9 @@ class Product(SlugBaseModel, Base):
 
     description = TextField(null=True, blank=True)
     price = DecimalField(decimal_places=2, max_digits=9)
-    image = ImageField(upload_to='products/')
-    size = CharField(max_length=20, choices=SizesChoices.choices, default=SizesChoices.S)
+    image = ImageField(upload_to='products/default-image/')
+    size = ChoiceArrayField(CharField(max_length=20, choices=SizesChoices.choices, default=list))
     colors = ChoiceArrayField(CharField(max_length=20, choices=ColorsChoices.choices, default=list))
-    discount = SmallIntegerField(default=0)
     category = ForeignKey('home.Category', CASCADE)
     sale = IntegerField(default=0, validators=[
         MaxValueValidator(100),
@@ -57,6 +55,3 @@ class Product(SlugBaseModel, Base):
     class Meta:
         ordering = ('-created_at',)
         db_table = 'product'
-
-
-

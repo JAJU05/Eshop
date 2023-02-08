@@ -1,4 +1,7 @@
-from django.db.models import Model, CharField, SlugField, ForeignKey, CASCADE, IntegerField, EmailField
+from django.db.models import Model, CharField, SlugField, ForeignKey, CASCADE, IntegerField, EmailField, ImageField, \
+    DateTimeField, TextField
+
+from shared.models import Base
 
 
 class Cart(Model):
@@ -7,14 +10,14 @@ class Cart(Model):
     count = IntegerField(default=1)
 
     def __str__(self):
-        return self.user, self.count
+        return f'{self.user} {self.count}'
 
     @property
     def total_price_of_products(self):
         return self.product.total_price * self.count
 
-    class Meta:
-        db_table = 'basket'
+    def total_price_with_shipping(self):
+        return self.total_price_of_products + 10
 
 
 class Order(Model):
@@ -38,5 +41,24 @@ class Favourite(Model):
     user = ForeignKey('users.User', on_delete=CASCADE)
     product = ForeignKey('home.Product', CASCADE)
 
+    def __str__(self):
+        return f'{self.user.email}({self.user.id}) -> {self.product.name}'
+
     class Meta:
         db_table = 'favourite'
+
+
+class ProductImages(Base):
+    product = ForeignKey('home.Product', CASCADE)
+    image = ImageField(upload_to='products/images/')
+
+
+class Comment(Model):
+    body = TextField()
+    product = ForeignKey('home.Product', CASCADE)
+    user = ForeignKey('users.User', CASCADE)
+    created_at = DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']
+        db_table = 'comments'

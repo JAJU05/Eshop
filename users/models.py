@@ -45,7 +45,7 @@ class User(AbstractUser):
             self.username = f'User000{self.__class__.objects.count()}'
         super().save(*args, **kwargs)
 
-
-
-
-
+    @property
+    def total_price_of_all_products(self):
+        total_price = sum(item.total_price_of_products for item in self.cart_set.all())
+        return total_price

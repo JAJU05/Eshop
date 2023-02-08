@@ -1,7 +1,10 @@
+from django.apps import apps
 from django.contrib import admin
-from home.models import Product, Category
-from home.models.products_handbook import Cart
+from django.contrib.admin.sites import AlreadyRegistered
 
-admin.site.register(Product)
-admin.site.register(Category)
-admin.site.register(Cart)
+app_models = apps.get_app_config('home').get_models()
+for model in app_models:
+    try:
+        admin.site.register(model)
+    except AlreadyRegistered:
+        pass

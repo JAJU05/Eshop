@@ -37,7 +37,7 @@
                             <td class="align-middle"><img src="{{ cart.product.image.url }}" alt=""
                                                           style="width: 50px;"> {{ cart.product.name }}
                             </td>
-                            <td class="align-middle">{{ cart.product.price }}</td>
+                            <td class="align-middle">{{ cart.product.price|floatformat:-2 }}$</td>
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                     <div class="input-group-btn">
@@ -54,10 +54,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="align-middle">{{ cart.product.discount|floatformat:2 }}%</td>
-                            <td class="align-middle">${{ cart.total_price_of_products }}</td>
+                            <td class="align-middle">{{ cart.product.sale|floatformat:-2 }}%</td>
+                            <td class="align-middle">{{ cart.total_price_of_products }}$</td>
                             <td class="align-middle">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
+                                <a href="{% url 'delete-cart' cart.id %}">
+                                    <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -80,7 +82,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-3 pt-1">
                             <h6 class="font-weight-medium">Subtotal</h6>
-                            <h6 class="font-weight-medium">$150</h6>
+                            <h6 class="font-weight-medium">${{ user.total_price_of_all_products }}</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
@@ -90,7 +92,7 @@
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Total</h5>
-                            <h5 class="font-weight-bold">$160</h5>
+                            <h5 class="font-weight-bold">${{ user.total_price_of_all_products }}</h5>
                         </div>
                         <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
                     </div>
